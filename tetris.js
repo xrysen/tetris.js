@@ -32,76 +32,11 @@ const collide = (arena, player) => {
   return false;
 };
 
-const createMatrix = (width, height) => {
-  const matrix = [];
-  while (height--) {
-    matrix.push(new Array(width).fill(0));
-  }
-  return matrix;
-};
-
-const createPiece = (type) => {
-  if (type === "T") {
-    return [
-      [0, 0, 0],
-      [1, 1, 1],
-      [0, 1, 0],
-    ];
-  } else if (type === "O") {
-    return [
-      [2, 2],
-      [2, 2],
-    ];
-  } else if (type === "L") {
-    return [
-      [3, 0, 0],
-      [3, 0, 0],
-      [3, 3, 0],
-    ];
-  } else if (type === "J") {
-    return [
-      [0, 0, 4],
-      [0, 0, 4],
-      [0, 4, 4],
-    ];
-  } else if (type === "I") {
-    return [
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-    ];
-  } else if (type === "S") {
-    return [
-      [0, 6, 6],
-      [6, 6, 0],
-      [0, 0, 0],
-    ];
-  } else if (type === "Z") {
-    return [
-      [7, 7, 0],
-      [0, 7, 7],
-      [0, 0, 0],
-    ];
-  }
-};
-
 const draw = () => {
   context.fillStyle = "#000";
   context.fillRect(0, 0, canvas.width, canvas.height);
   drawMatrix(arena, { x: 0, y: 0 });
   drawMatrix(player.matrix, player.pos);
-};
-
-const drawMatrix = (matrix, offset) => {
-  matrix.forEach((row, y) => {
-    row.forEach((value, x) => {
-      if (value !== 0) {
-        context.fillStyle = colours[value];
-        context.fillRect(x + offset.x, y + offset.y, 1, 1);
-      }
-    });
-  });
 };
 
 const merge = (arena, player) => {
@@ -114,55 +49,7 @@ const merge = (arena, player) => {
   });
 };
 
-let dropCounter = 0;
-let dropInterval = 1000;
 
-let lastTime = 0;
-
-const playerDrop = () => {
-  player.pos.y++;
-  if (collide(arena, player)) {
-    player.pos.y--;
-    merge(arena, player);
-    playerReset();
-    checkForLines();
-    updateScore();
-  }
-  dropCounter = 0;
-};
-
-const playerMove = (direction) => {
-  player.pos.x += direction;
-  if (collide(arena, player)) {
-    player.pos.x -= direction;
-  }
-};
-
-const playerRotate = (direction) => {
-  const pos = player.pos.x;
-  let offset = 1;
-  rotate(player.matrix, direction);
-  while (collide(arena, player)) {
-    player.pos.x += offset;
-    offset = -(offset + (offset > 0 ? 1 : -1));
-    if (offset > player.matrix[0].length) {
-      rotate(player.matrix, -direction);
-      player.pos.x = pos;
-      return;
-    }
-  }
-};
-
-const playerReset = () => {
-  const pieces = "ILJOTSZ";
-  player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
-  player.pos.y = 0;
-  player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
-
-  if (collide(arena, player)) {
-    arena.forEach(row => row.fill(0));
-  }
-}
 
 const rotate = (matrix, direction) => {
   for (let y = 0; y < matrix.length; y++) {
@@ -192,12 +79,6 @@ const update = (time = 0) => {
 const colours = [null, 'red', 'blue', 'pink', 'green', 'purple', 'yellow', 'orange'];
 
 const arena = createMatrix(12, 20);
-
-const player = {
-  pos: { x: 0, y: 0 },
-  matrix: null,
-  score: 0, 
-};
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
