@@ -80,6 +80,24 @@ const playerMove = (direction) => {
   }
 }
 
+const playerRotate = (direction) => {
+  rotate(player.matrix, direction);
+}
+
+const rotate = (matrix, direction) => {
+  for (let y = 0; y < matrix.length; y++) {
+    for (let x = 0; x < y; x++) {
+      [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+    }
+  }
+
+  if (direction > 0) {
+    matrix.forEach(row => row.reverse());
+  } else {
+    matrix.reverse();
+  }
+}
+
 const update = (time = 0) => {
   const deltaTime = time - lastTime;
   lastTime = time;
@@ -105,6 +123,8 @@ document.addEventListener("keydown", (event) => {
     playerMove(1);
   } else if (event.key === "ArrowDown") {
     playerDrop();
+  } else if (event.key === "ArrowUp") {
+    playerRotate(1);
   }
 });
 
