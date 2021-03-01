@@ -81,7 +81,18 @@ const playerMove = (direction) => {
 }
 
 const playerRotate = (direction) => {
+  const pos = player.pos.x;
+  let offset = 1;
   rotate(player.matrix, direction);
+  while (collide(arena, player)) {
+    player.pos.x += offset;
+    offset = -(offset + (offset > 0 ? 1 : -1));
+    if (offset > player.matrix[0].length) {
+      rotate(player.matrix, -direction);
+      player.pos.x = pos;
+      return;
+    }
+  }
 }
 
 const rotate = (matrix, direction) => {
