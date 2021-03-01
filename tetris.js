@@ -33,6 +33,7 @@ const createMatrix = (width, height) => {
 const draw = () => {
   context.fillStyle = "#000";
   context.fillRect(0, 0, canvas.width, canvas.height);
+  drawMatrix(arena, { x:0, y: 0});
   drawMatrix(player.matrix, player.pos);
 };
 
@@ -72,6 +73,13 @@ const playerDrop = () => {
   dropCounter = 0;
 };
 
+const playerMove = (direction) => {
+  player.pos.x += direction;
+  if (collide(arena, player)) {
+    player.pos.x -= direction;
+  }
+}
+
 const update = (time = 0) => {
   const deltaTime = time - lastTime;
   lastTime = time;
@@ -92,9 +100,9 @@ const player = {
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
-    player.pos.x--;
+    playerMove(-1)
   } else if (event.key === "ArrowRight") {
-    player.pos.x++;
+    playerMove(1);
   } else if (event.key === "ArrowDown") {
     playerDrop();
   }
