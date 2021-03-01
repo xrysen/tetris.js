@@ -3,12 +3,6 @@ const context = canvas.getContext("2d");
 
 context.scale(20, 20);
 
-const matrix = [
-  [0, 0, 0],
-  [1, 1, 1],
-  [0, 1, 0],
-];
-
 const collide = (arena, player) => {
   const m = player.matrix;
   const o = player.pos;
@@ -20,7 +14,7 @@ const collide = (arena, player) => {
     }
   }
   return false;
-}
+};
 
 const createMatrix = (width, height) => {
   const matrix = [];
@@ -30,10 +24,56 @@ const createMatrix = (width, height) => {
   return matrix;
 };
 
+const createPiece = (type) => {
+  if (type === "T") {
+    return [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0],
+    ];
+  } else if (type === "O") {
+    return [
+      [1, 1],
+      [1, 1],
+    ];
+  } else if (type === "L") {
+    return [
+      [1, 0, 0],
+      [1, 0, 0],
+      [1, 1, 0],
+    ];
+  } else if (type === "J") {
+    return [
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 1, 1],
+    ];
+  } else if (type === "I") {
+    return [
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+    ];
+  } else if (type === "S") {
+    return [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0],
+    ];
+  } else if (type === "Z") {
+    return [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0],
+    ];
+  }
+};
+
 const draw = () => {
   context.fillStyle = "#000";
   context.fillRect(0, 0, canvas.width, canvas.height);
-  drawMatrix(arena, { x:0, y: 0});
+  drawMatrix(arena, { x: 0, y: 0 });
   drawMatrix(player.matrix, player.pos);
 };
 
@@ -78,7 +118,7 @@ const playerMove = (direction) => {
   if (collide(arena, player)) {
     player.pos.x -= direction;
   }
-}
+};
 
 const playerRotate = (direction) => {
   const pos = player.pos.x;
@@ -93,7 +133,7 @@ const playerRotate = (direction) => {
       return;
     }
   }
-}
+};
 
 const rotate = (matrix, direction) => {
   for (let y = 0; y < matrix.length; y++) {
@@ -103,11 +143,11 @@ const rotate = (matrix, direction) => {
   }
 
   if (direction > 0) {
-    matrix.forEach(row => row.reverse());
+    matrix.forEach((row) => row.reverse());
   } else {
     matrix.reverse();
   }
-}
+};
 
 const update = (time = 0) => {
   const deltaTime = time - lastTime;
@@ -123,13 +163,13 @@ const update = (time = 0) => {
 const arena = createMatrix(12, 20);
 
 const player = {
-  pos: { x: 5, y: 5 },
-  matrix: matrix,
+  pos: { x: 0, y: 0 },
+  matrix: createPiece("Z"),
 };
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
-    playerMove(-1)
+    playerMove(-1);
   } else if (event.key === "ArrowRight") {
     playerMove(1);
   } else if (event.key === "ArrowDown") {
