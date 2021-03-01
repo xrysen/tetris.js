@@ -76,7 +76,8 @@ const update = (time = 0) => {
   requestAnimationFrame(update);
 };
 
-const colours = [null, 'red', 'blue', 'pink', 'green', 'purple', 'yellow', 'orange'];
+
+const colours = [null, "#DC2F31", '#E0843B', '#E9E635', '#8DE543', '#1C921A', '#4DBCD7', '#4744D9'];
 
 const arena = createMatrix(12, 20);
 
@@ -93,7 +94,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 const updateScore = () => {
-  document.getElementById("score").innerText = player.score;
+  document.getElementById("score").innerText = "Score: " + player.score;
 }
 
 playerReset();

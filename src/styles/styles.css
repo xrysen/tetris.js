@@ -1,7 +1,9 @@
 canvas {
-  height: 90vh;
+  height: 88vh;
 }
 
 body {
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
 }
+
