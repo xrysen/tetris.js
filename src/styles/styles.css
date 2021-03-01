@@ -1,9 +1,16 @@
 canvas {
-  height: 88vh;
+  height: 90vh;
+  border: 2px solid white;
 }
 
 body {
+  background-color: #22223b;
   text-align: center;
   font-family: 'Press Start 2P', cursive;
+  color: white;
+}
+
+#score {
+  margin-bottom: 10px;
 }
 

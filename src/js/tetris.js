@@ -82,6 +82,7 @@ const colours = [null, "#DC2F31", '#E0843B', '#E9E635', '#8DE543', '#1C921A', '#
 const arena = createMatrix(12, 20);
 
 document.addEventListener("keydown", (event) => {
+  event.preventDefault();
   if (event.key === "ArrowLeft") {
     playerMove(-1);
   } else if (event.key === "ArrowRight") {
