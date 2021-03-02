@@ -15,8 +15,18 @@ body {
   margin-bottom: 10px;
 }
 
+#level {
+  margin-bottom: 10px;
+}
+
 #lines {
   margin-bottom: 10px;
+}
+
+#stats {
+  position: relative;
+  left: 380px;
+  bottom: 700px;
 }
 
 .button {
@@ -34,7 +44,7 @@ body {
   text-decoration: none;
   text-shadow: 0px 1px 0px #283966;
   position: relative;
-  left: 400px;
+  left: 380px;
   bottom: 800px;
 }
 
