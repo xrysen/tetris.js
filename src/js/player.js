@@ -54,4 +54,6 @@ const player = {
   pos: { x: 0, y: 0 },
   matrix: null,
   score: 0, 
+  lineCount: 0,
+  level: 0,
 };

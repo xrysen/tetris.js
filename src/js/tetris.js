@@ -17,6 +17,7 @@ const checkForLines = () => {
     arena.unshift(row);
     y++;
     player.score += rowCount * 10;
+    player.lineCount += rowCount;
     rowCount *= 2;
   }
 };
@@ -87,7 +88,7 @@ const colours = [
   "#4744D9",
 ];
 
-const arena = createMatrix(12, 20);
+let arena = createMatrix(12, 20);
 
 document.addEventListener("keydown", (event) => {
   event.preventDefault();
@@ -104,6 +105,7 @@ document.addEventListener("keydown", (event) => {
 
 const updateScore = () => {
   document.getElementById("score").innerText = "Score: " + player.score;
+  document.getElementById("lines").innerText = "Lines: " + player.lineCount;
 };
 
 const startButton = document.getElementById("start");
@@ -111,8 +113,11 @@ const pauseButton = document.getElementById("pause");
 const resumeButton = document.getElementById("resume");
 
 startButton.addEventListener("click", () => {
-  console.log("click")
+  player.score = 0;
+  player.lineCount = 0;
+  player.level = 0;
   playing = true;
+  arena = createMatrix(12, 20);
   playerReset();
   update();
 });
