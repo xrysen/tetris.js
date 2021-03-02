@@ -18,6 +18,7 @@ const checkForLines = () => {
     y++;
     player.score += rowCount * 10;
     player.lineCount += rowCount;
+    player.level = Math.floor(player.score / 100);
     rowCount *= 2;
   }
 };
@@ -69,6 +70,7 @@ const rotate = (matrix, direction) => {
 const update = (time = 0) => {
   const deltaTime = time - lastTime;
   lastTime = time;
+  dropInterval = 1000 - (player.level * 100);
   dropCounter += deltaTime;
   if (dropCounter > dropInterval && !paused) {
     playerDrop();
@@ -106,6 +108,7 @@ document.addEventListener("keydown", (event) => {
 const updateScore = () => {
   document.getElementById("score").innerText = "Score: " + player.score;
   document.getElementById("lines").innerText = "Lines: " + player.lineCount;
+  document.getElementById("level").innerText = "Level: " + player.level;
 };
 
 const startButton = document.getElementById("start");
@@ -119,6 +122,7 @@ startButton.addEventListener("click", () => {
   playing = true;
   arena = createMatrix(12, 20);
   playerReset();
+  updateScore();
   update();
 });
 

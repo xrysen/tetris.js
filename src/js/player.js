@@ -46,6 +46,8 @@ const playerReset = () => {
   if (collide(arena, player)) {
     arena.forEach(row => row.fill(0));
     player.score = 0;
+    player.level = 0;
+    player.lineCount = 0;
     updateScore();
   }
 }
