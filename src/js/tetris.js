@@ -1,5 +1,7 @@
 const canvas = document.getElementById("tetris");
 const context = canvas.getContext("2d");
+let playing = false;
+let paused = false;
 
 context.scale(20, 20);
 
@@ -17,7 +19,7 @@ const checkForLines = () => {
     player.score += rowCount * 10;
     rowCount *= 2;
   }
-}
+};
 
 const collide = (arena, player) => {
   const m = player.matrix;
@@ -49,8 +51,6 @@ const merge = (arena, player) => {
   });
 };
 
-
-
 const rotate = (matrix, direction) => {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < y; x++) {
@@ -69,15 +69,23 @@ const update = (time = 0) => {
   const deltaTime = time - lastTime;
   lastTime = time;
   dropCounter += deltaTime;
-  if (dropCounter > dropInterval) {
+  if (dropCounter > dropInterval && !paused) {
     playerDrop();
   }
   draw();
   requestAnimationFrame(update);
 };
 
-
-const colours = [null, "#DC2F31", '#E0843B', '#E9E635', '#8DE543', '#1C921A', '#4DBCD7', '#4744D9'];
+const colours = [
+  null,
+  "#DC2F31",
+  "#E0843B",
+  "#E9E635",
+  "#8DE543",
+  "#1C921A",
+  "#4DBCD7",
+  "#4744D9",
+];
 
 const arena = createMatrix(12, 20);
 
@@ -96,7 +104,28 @@ document.addEventListener("keydown", (event) => {
 
 const updateScore = () => {
   document.getElementById("score").innerText = "Score: " + player.score;
-}
+};
 
-playerReset();
-update();
+const startButton = document.getElementById("start");
+const pauseButton = document.getElementById("pause");
+
+startButton.addEventListener("click", () => {
+  console.log("click")
+  playing = true;
+  playerReset();
+  update();
+});
+
+pauseButton.addEventListener("click", () => {
+  console.log("click");
+  if (playing && paused) {
+    paused = false;
+  } else if (playing && !paused) {
+    paused = true;
+  }
+})
+
+if (playing) {
+  playerReset();
+  update();
+}
