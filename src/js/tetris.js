@@ -108,6 +108,7 @@ const updateScore = () => {
 
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
+const resumeButton = document.getElementById("resume");
 
 startButton.addEventListener("click", () => {
   console.log("click")
@@ -122,8 +123,16 @@ pauseButton.addEventListener("click", () => {
     paused = false;
   } else if (playing && !paused) {
     paused = true;
+    document.getElementById("pause-modal").style.display = "inline-block";
   }
 })
+
+resumeButton.addEventListener("click", () => {
+  if (playing && paused) {
+    paused = false;
+    document.getElementById("pause-modal").style.display = "none";
+  }
+});
 
 if (playing) {
   playerReset();
