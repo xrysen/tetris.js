@@ -44,7 +44,9 @@ const playerReset = () => {
   player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
 
   if (collide(arena, player)) {
-    arena.forEach(row => row.fill(0));
+    document.getElementById("game-over").style.display = "inline-block";
+    paused = true;
+    //arena.forEach(row => row.fill(0));
     player.score = 0;
     player.level = 0;
     player.lineCount = 0;

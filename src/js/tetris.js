@@ -94,13 +94,13 @@ let arena = createMatrix(12, 20);
 
 document.addEventListener("keydown", (event) => {
   event.preventDefault();
-  if (event.key === "ArrowLeft") {
+  if (event.key === "ArrowLeft"  && !paused) {
     playerMove(-1);
-  } else if (event.key === "ArrowRight") {
+  } else if (event.key === "ArrowRight"  && !paused) {
     playerMove(1);
-  } else if (event.key === "ArrowDown") {
+  } else if (event.key === "ArrowDown" && !paused) {
     playerDrop();
-  } else if (event.key === "ArrowUp") {
+  } else if (event.key === "ArrowUp" && !paused) {
     playerRotate(1);
   }
 });
@@ -114,17 +114,31 @@ const updateScore = () => {
 const startButton = document.getElementById("start");
 const pauseButton = document.getElementById("pause");
 const resumeButton = document.getElementById("resume");
+const restart = document.getElementById("restart");
 
 startButton.addEventListener("click", () => {
   player.score = 0;
   player.lineCount = 0;
   player.level = 0;
   playing = true;
-  arena = createMatrix(12, 20);
+  arena.forEach(row => row.fill(0));
   playerReset();
   updateScore();
   update();
 });
+
+restart.addEventListener("click", () => {
+  document.getElementById("game-over").style.display = "none";
+  player.score = 0;
+  player.lineCount = 0;
+  player.level = 0;
+  playing = true;
+  paused = false;
+  arena.forEach(row => row.fill(0));
+  playerReset();
+  updateScore();
+  update();
+})
 
 pauseButton.addEventListener("click", () => {
   console.log("click");
