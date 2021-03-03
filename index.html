@@ -13,25 +13,28 @@
     <link rel="stylesheet" href="src/styles/styles.css" />
   </head>
   <body>
-    <div class="container">
-      <h1>TETRIS</h1>
+    <div class="main-container">
+      <div class = "controls-container">
+        <p>Left/Right Arrows: Move Piece</p>
+        <p>Up Arrow: Rotate</p>
+        <p>Down Arrow: Drop Piece Faster</p>
+      </div>
 
-      <canvas id="tetris" width="240" height="400"></canvas>
-    </div>
+      <div class="game-container">
+        <h1>TETRIS</h1>
+        <canvas id="tetris" width="240" height="400"></canvas>
+      </div>
 
-    <div id = "controls">
-      <p>Left/Right Arrows: Move Piece</p>
-      <p>Up Arrow: Rotate</p>
-      <p>Down Arrow: Drop Piece Faster</p>
-    </div>
-
-    <div id="start" class="button">New Game</div>
-    <br /><br />
-    <div id="pause" class="button">Pause</div>
-    <div id="stats">
-      <div id="level">Level: 0</div>
-      <div id="score">Score: 0</div>
-      <div id="lines">Lines: 0</div>
+      <div class="right-container">
+        <div id="start" class="button">Start</div>
+        <br /><br />
+        <div id="pause" class="button">Pause</div>
+        <div id="stats">
+          <div id="level">Level: 0</div>
+          <div id="score">Score: 0</div>
+          <div id="lines">Lines: 0</div>
+        </div>
+      </div>
     </div>
 
     <div id="pause-modal">
